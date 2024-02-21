@@ -30,7 +30,7 @@ public class MyAccounts extends AppCompatActivity {
         String[] usuarios = {"123456", "456789", "78945"};
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, usuarios);
-
+        userSpinner = findViewById(R.id.userSpinner);
         userSpinner.setAdapter(adapter);
 
 

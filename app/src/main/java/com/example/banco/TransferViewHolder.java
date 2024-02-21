@@ -19,7 +19,6 @@ public class TransferViewHolder extends RecyclerView.ViewHolder{
         temp = itemView.findViewById(R.id.cuantity);
         chap = itemView.findViewById(R.id.date);
 
-
     }
 }
 

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -15,13 +14,15 @@ import java.util.List;
 public class TransfersAdapter extends RecyclerView.Adapter<TransfersAdapter.TransferViewHolder> {
     private List<Transfer> series;
     private Context context;
-    private DataManager databaseHelper;
+    //private DataManager databaseHelper;
 
-    public TransfersAdapter(Context context, List<Transfer> series, DataManager databaseHelper) {
+    public TransfersAdapter(Context context, List<Transfer> series) {
         this.context = context;
         this.series = series;
-        this.databaseHelper = databaseHelper;
+        //this.databaseHelper = databaseHelper;
     }
+
+
 
     @NonNull
     @Override
@@ -35,10 +36,15 @@ public class TransfersAdapter extends RecyclerView.Adapter<TransfersAdapter.Tran
     public void onBindViewHolder(TransferViewHolder holder, int position) {
         Transfer serie = series.get(position);
 
-        holder.destiny.setText(serie.getDestiny());
-        holder.cuantity.setText(serie.getCuantity());
+        holder.destiny.setText(String.valueOf(serie.getDestiny()));
+        holder.cuantity.setText(String.valueOf(serie.getCuantity()));
         holder.date.setText(serie.getDate());
 
+    }
+    public void updateSerie(List<Transfer> transf) {
+        series.clear();
+        series.addAll(transf);
+        notifyDataSetChanged();
     }
 
 

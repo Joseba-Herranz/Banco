@@ -36,8 +36,8 @@ public class TransferActivity extends AppCompatActivity {
         accountNumber = getIntent().getStringExtra("account_number");
 
 
-        bAdd = findViewById(R.id.cerrar);
-        bBack = findViewById(R.id.guardar);
+        bAdd = findViewById(R.id.guardar);
+        bBack = findViewById(R.id.cerrar);
 
         name = findViewById(R.id.destiny);
         temp = findViewById(R.id.cuantity);
@@ -56,8 +56,8 @@ public class TransferActivity extends AppCompatActivity {
 
                 Transfer serie = new Transfer(nombre, cuantity, date);
                 db.addTransferencia(userId, serie);
-
-                finish();
+                updateList(userId);
+                //finish();
             }
         });
 
@@ -76,7 +76,18 @@ public class TransferActivity extends AppCompatActivity {
         super.onResume();
         // Actualiza la lista de series cada vez que se retoma la actividad, por si hubo cambios
         String userId = getIntent().getStringExtra("usuarioSeleccionado");
+        updateList(userId);
+    }
+
+    private void updateList(String userId){
         List<Transfer> series = db.getTransfer(userId);
-       // transferAdapter.updateSeries(series);
+        if(transfersAdapter == null){
+            transfersAdapter = new TransfersAdapter(this, series);
+            transfersRecyclerView.setAdapter(transfersAdapter);
+        }else{
+            transfersAdapter.updateSerie(series);
+        }
+
+
     }
 }

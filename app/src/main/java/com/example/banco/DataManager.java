@@ -23,8 +23,8 @@ public class DataManager extends SQLiteOpenHelper {
     private static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + " (" +
                     COLUMN_USER_ID + " TEXT, " +
-                    COLUMN_DESTINY + " INTERGER, " +
-                    COLUMN_CUANTITY + " INTERGER, " +
+                    COLUMN_DESTINY + " INTEGER, " +
+                    COLUMN_CUANTITY + " INTEGER, " +
                     COLUMN_DATE + " TEXT, " +
                     "PRIMARY KEY (" + COLUMN_USER_ID + ", " + COLUMN_DESTINY + "))"; // Clave primaria compuesta por el ID de usuario y el nombre de la serie
 
@@ -108,6 +108,23 @@ public class DataManager extends SQLiteOpenHelper {
 
         addTransferencia("78945", new Transfer(45678944, 35, "20/01/2077"));
 
+    }
+
+    public void updateSerie(String userId, Transfer transferencia) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_USER_ID, userId);
+        values.put(COLUMN_DESTINY, transferencia.getDestiny());
+        values.put(COLUMN_CUANTITY, transferencia.getCuantity());
+        values.put(COLUMN_DATE, transferencia.getDate());
+
+        String selection = COLUMN_USER_ID + " = ? AND " + COLUMN_DESTINY + " = ?";
+        String[] selectionArgs = { userId, String.valueOf(transferencia.getDestiny())};
+
+        int count = db.update(TABLE_NAME, values, selection, selectionArgs);
+
+        db.close();
     }
 
 }
